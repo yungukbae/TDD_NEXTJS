@@ -8,7 +8,7 @@ import remarkHtml from "remark-html";
 const FILES = fs.readdirSync(path.join("__posts"));
 
 const id = ({ innerHTML }: { innerHTML: string }) => {
-  return <div dangerouslySetInnerHTML={{ __html: innerHTML }}></div>;
+  return <div dangerouslySetInnerHTML={{ __html: innerHTML }} />;
 };
 
 export async function getStaticPaths() {
