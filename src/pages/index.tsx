@@ -2,15 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import { testImg } from "assets";
-import { prefix } from "@/config/config";
 
-interface Props {
-  posts: Array<string>;
-}
-
-export default function Home({ posts }: Props) {
-  console.log(prefix);
-  console.log(testImg.src);
+export default function Home() {
   return (
     <>
       <Head>
