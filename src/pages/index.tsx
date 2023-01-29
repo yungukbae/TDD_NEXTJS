@@ -9,7 +9,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="container text-3xl font-bold underlineyarn">dfsef</div>
+      <div className="bg-slate-500 mx-auto h-screen">test</div>
     </>
   );
 }
