@@ -1,6 +1,29 @@
 import Head from "next/head";
+import { useReducer, useRef } from "react";
+
+const initialCount = [{ task: "first task", isChecked: false }];
+
+interface ActionType {
+  task: string;
+  isChecked: boolean;
+}
 
 export default function Home() {
+  const isRef = useRef<HTMLInputElement>(null);
+  const [task, setTask] = useReducer(
+    (prev: ActionType[], action: ActionType) => {
+      return [...prev, action];
+    },
+    initialCount
+  );
+
+  const handleInput = () => {
+    if (isRef.current) {
+      setTask({ task: isRef.current.value, isChecked: false });
+      isRef.current.value = "";
+    }
+  };
+
   return (
     <>
       <Head>
@@ -15,14 +38,30 @@ export default function Home() {
             Todo List
           </div>
           <div>
-            <input type="text" className="w-60 rounded-lg mb-2" />
+            <input
+              type="text"
+              className="w-60 rounded-lg mb-2"
+              ref={isRef}
+              onKeyDown={(e) => {
+                if (e.code === "Enter") {
+                  handleInput();
+                }
+              }}
+            />
             <hr className="mb-5" />
           </div>
           <div>
-            <div className="bg-gray-200 rounded-lg flex justify-between px-5">
-              <div className="truncate">first task</div>
-              <input type="checkbox" />
-            </div>
+            {task.map((v, i) => {
+              return (
+                <div
+                  key={i}
+                  className="bg-gray-200 rounded-lg flex justify-between px-5"
+                >
+                  <div className="truncate">{v.task}</div>
+                  <input type="checkbox" defaultChecked={v.isChecked} />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

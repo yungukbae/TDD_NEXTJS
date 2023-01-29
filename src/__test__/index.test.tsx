@@ -1,5 +1,6 @@
 import Home from "@/pages/index";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 describe("Todo Test", () => {
   it("ui test", async () => {
@@ -11,5 +12,13 @@ describe("Todo Test", () => {
     expect(checkEl).not.toBeChecked();
   });
 
-  // it("");
+  it("input test", async () => {
+    render(<Home />);
+    const inputEl = await screen.findByRole("textbox");
+    await userEvent.click(inputEl);
+    await userEvent.type(inputEl, "input test");
+    await screen.getByDisplayValue(/input test/);
+    await userEvent.keyboard("{Enter}");
+    expect(inputEl).toHaveValue("");
+  });
 });
