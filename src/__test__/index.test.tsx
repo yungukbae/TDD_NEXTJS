@@ -20,5 +20,16 @@ describe("Todo Test", () => {
     await screen.getByDisplayValue(/input test/);
     await userEvent.keyboard("{Enter}");
     expect(inputEl).toHaveValue("");
+    await screen.findByText(/input test/);
+  });
+
+  it("checkbox Test", async () => {
+    render(<Home />);
+    const checkEl = await screen.findByRole("checkbox");
+    expect(checkEl).not.toBeChecked();
+    await userEvent.click(checkEl);
+    expect(checkEl).toBeChecked();
+    const text = await screen.findByText(/first task/);
+    expect(text).toHaveStyle("text-decoration:line-through");
   });
 });

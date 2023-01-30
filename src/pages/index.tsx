@@ -57,7 +57,13 @@ export default function Home() {
                   key={i}
                   className="bg-gray-200 rounded-lg flex justify-between px-5"
                 >
-                  <div className="truncate">{v.task}</div>
+                  <div
+                    className={
+                      !v.isChecked ? "decoration-line" : "" + " truncate"
+                    }
+                  >
+                    {v.task}
+                  </div>
                   <input type="checkbox" defaultChecked={v.isChecked} />
                 </div>
               );
