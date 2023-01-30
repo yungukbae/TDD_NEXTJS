@@ -30,6 +30,6 @@ describe("Todo Test", () => {
     await userEvent.click(checkEl);
     expect(checkEl).toBeChecked();
     const text = await screen.findByText(/first task/);
-    expect(text).toHaveStyle("text-decoration:line-through");
+    expect(text).toHaveClass("line-through");
   });
 });

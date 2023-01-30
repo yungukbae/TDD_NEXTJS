@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { useReducer, useRef } from "react";
+import Item from "./item";
 
 const initialCount = [{ task: "first task", isChecked: false }];
 
-interface ActionType {
+export interface ActionType {
   task: string;
   isChecked: boolean;
 }
@@ -12,7 +13,8 @@ export default function Home() {
   const isRef = useRef<HTMLInputElement>(null);
   const [task, setTask] = useReducer(
     (prev: ActionType[], action: ActionType) => {
-      return [...prev, action];
+      const change = prev.filter((x) => x.task !== action.task);
+      return [...change, action];
     },
     initialCount
   );
@@ -51,22 +53,8 @@ export default function Home() {
             <hr className="mb-5" />
           </div>
           <div>
-            {task.map((v, i) => {
-              return (
-                <div
-                  key={i}
-                  className="bg-gray-200 rounded-lg flex justify-between px-5"
-                >
-                  <div
-                    className={
-                      !v.isChecked ? "decoration-line" : "" + " truncate"
-                    }
-                  >
-                    {v.task}
-                  </div>
-                  <input type="checkbox" defaultChecked={v.isChecked} />
-                </div>
-              );
+            {task.map((item) => {
+              return <Item key={item.task} item={item} handleCheck={setTask} />;
             })}
           </div>
         </div>
