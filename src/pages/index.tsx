@@ -1,12 +1,4 @@
 import Head from "next/head";
-import { useEffect, useReducer, useRef } from "react";
-
-const initialCount = [{ task: "first task", isChecked: false }];
-
-export interface ActionType {
-  task: string;
-  isChecked: boolean;
-}
 
 export default function Home() {
   return (
