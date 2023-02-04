@@ -16,7 +16,7 @@ interface AuthProviderType {
   children?: ReactNode;
 }
 
-const AuthProvider: FC<AuthProviderType> = ({ children }) => {
+export const AuthProvider: FC<AuthProviderType> = ({ children }) => {
   const signIn = () => {
     return Promise.resolve();
   };
