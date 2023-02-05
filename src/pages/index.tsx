@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 interface Prev {
   id: string;
@@ -36,9 +36,14 @@ const reducer = (prev: Prev[], action: ActionType) => {
   }
 };
 
-export default function Home() {
+export default function Home(props: any) {
   const [task, dispatch] = useReducer(reducer, initReducer);
   const isRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // handleGetReviews();
+    console.log(props);
+  }, [props]);
 
   const handleTask = (body: ActionType) => {
     dispatch(body);
@@ -116,4 +121,28 @@ export default function Home() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  // Server-side requests are mocked by `mocks/server.ts`.
+  const res = await fetch("https://test.com/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: "test2@test.com",
+      password: "string",
+      phone: 2345234,
+      addr: "",
+      verifyCode: 134423342,
+    }),
+  });
+  const book = await res.json();
+
+  return {
+    props: {
+      book,
+    },
+  };
 }
