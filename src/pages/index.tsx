@@ -125,20 +125,27 @@ export default function Home(props: any) {
 
 export async function getServerSideProps() {
   // Server-side requests are mocked by `mocks/server.ts`.
-  const res = await fetch("https://test.com/signup", {
+  const res = await fetch("https://test.com/signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: "test2@test.com",
+      email: "test@test.com",
       password: "string",
-      phone: 2345234,
-      addr: "",
-      verifyCode: 134423342,
     }),
   });
   const book = await res.json();
+  const token = await fetch("https://test.com/refresh", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      refreshToken: book[0].refreshToken,
+    }),
+  });
+  console.log("token:", await token.json());
 
   return {
     props: {
