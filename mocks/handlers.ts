@@ -56,8 +56,9 @@ export const refresh = rest.post(
     res: ResponseComposition<DefaultBodyType>,
     ctx: RestContext
   ) => {
-    const refreshToken = await req.json();
-    console.log(jwt.decode(refreshToken.refreshToken));
+    const param = await req.json();
+    const refToken = jwt.decode(param.refreshToken);
+
     return res(ctx.status(200), ctx.json([{ message: "token refresh" }]));
   }
 );
